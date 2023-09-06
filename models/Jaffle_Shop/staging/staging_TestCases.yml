@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: All the customers of jaffle shop are saved in this table.  
+    columns:
+      - name: id
+        description:  unique id for each customer in the table.
+        tests:
+          - unique
+          - not_null
+          - is_even
+
+  - name: stg_orders
+    description: All orders data will be stores as per date.
+    columns:
+      - name: id
+        description: Unique Id for each order stored in the fact table
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+      - name: user_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: id
+
