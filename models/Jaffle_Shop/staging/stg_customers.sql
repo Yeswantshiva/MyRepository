@@ -1,8 +1,10 @@
-{{ config(materialized='table') }}
 
-    select * from  {{ env_var('DBT_Source_database','RAW' ) }}.JAFFLE_SHOP.{{ env_var('DBT_source_Table', 'customers')
-     }}
-    where id >= {{ var('custid', 40) }}
+select
 
-----dbt run -s stg_customers --vars '{custid:80}  syntax to run at command line. 
---Precedence : first - command line , sec - yaml , thrid - model 
+        {{ dbt_utils.generate_surrogate_key(['id', 'first_name', 'last_name']) }} as CustUniqueID,
+
+        * from raw.jaffle_shop.Customers       
+
+
+
+

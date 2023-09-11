@@ -1,7 +1,6 @@
 
 {{ config(materialized='table') }}
 
-select *,
-{{ cents_to_dollars('amount') }} as amount_usd
+select *
  from RAW.STRIPE.PAYMENT
 

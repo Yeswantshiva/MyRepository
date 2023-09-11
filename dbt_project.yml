@@ -33,7 +33,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
   materialized: table
+  pre-hook: "insert into ANALYTICS.AUDITING.DBTMODELSAUDIT(modelname,model_starttime, model_endtime) values('{{this}}',current_timestamp(), null);"
+  post-hook: "update ANALYTICS.AUDITING.DBTMODELSAUDIT set model_endtime=current_timestamp() where modelname = '{{this}}';"
+
     # Applies to all files under models/example/
     
-vars:
-  custid: 60
