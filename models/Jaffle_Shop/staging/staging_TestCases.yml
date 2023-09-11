@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: All the customers of jaffle shop are saved in this table.  
+    columns:
+      - name: id
+        description:  unique id for each customer in the table.
+        tests:
+          - unique
+          - not_null
+              
+
+  - name: stg_orders
+    description: ''
+    columns:
+      - name: id
+        description: Identifies each customer uniquely
+        tests:
+          - unique
+          - not_null
+     
+      - name: user_id
+        tests:
+          - not_null
+         
+
